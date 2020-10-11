@@ -151,6 +151,13 @@ if (!is_null($events['events'])) {
             ];
             $post = json_encode($data);
             $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+            
+            
+            $send_result = send_reply_message($url, $headers, $post);
+
+            echo "Result: ".$send_result."\r\n";
+            
+            /*
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -160,9 +167,25 @@ if (!is_null($events['events'])) {
             $result = curl_exec($ch);
             curl_close($ch);
             echo $result . "";
+            */
         }
     }
 }
 echo "OK";
+
+
+function send_reply_message($url, $post_header, $post_body)
+{
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result;
+}
 
 ?>
