@@ -141,8 +141,9 @@ if (!is_null($events['events'])) {
             // Get replyToken
             $replyToken = $event['replyToken'];
             
+            $_msg = $event[0]['message']['text'];
             
-            if (strpos($text, 'token') !== false) {
+            if (strpos($_msg, 'token') !== false) {
                 
                 // Build message to reply back
                 $messages = [
